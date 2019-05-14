@@ -79,5 +79,5 @@
     lessopen = "| pygmentize -O style=solarized -f console256 -g %s"
 [github]
 	user = rookawa
-[commit]
-	gpgsign = true
+# [commit]
+# 	gpgsign = true
