@@ -1,12 +1,17 @@
+source ~/.zplugin/bin/zplugin.zsh
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 zplugin light zdharma/zui
 zplugin light zdharma/zplugin-crasis
 
 zplugin load zdharma/history-search-multi-word
+
+zplugin ice wait"5" atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" lucid
 zplugin light zdharma/fast-syntax-highlighting
 
-zplugin light zsh-users/zsh-autosuggestions
 zplugin light zsh-users/zsh-autosuggestions
 zplugin light zsh-users/zsh-completions
 zplugin light zsh-users/zsh-history-substring-search
@@ -19,13 +24,11 @@ zplugin light direnv/direnv
 
 zplugin snippet https://github.com/rupa/z/blob/master/z.sh
 
-zplugin ice svn pick"*.zsh"
-zplugin snippet OMZ::lib
+zplugin ice depth"1" pick"lib/{clipboard,compfix,completion,correction,diagnostics,directories,functions,git,grep,history,key-bindings,misc,termsupport,theme-and-appearance}.zsh"
+zplugin load robbyrussell/oh-my-zsh
 
-array=( {asdf,aws,brew,command-not-found,common-aliases,emoji,encode64,git,httpie,iterm2,kops,kube-ps1,kubectl,minikube,pip,pyenv,python,rsync,ssh-agent,terraform,virtualenv,zsh-wakatime} )
-zplg ice svn multisrc"$array"
-zplugin snippet OMZ::plugins
-zplugin cdclear -q
+zplugin ice depth"1" multisrc="plugins/{asdf,aws,brew,command-not-found,common-aliases,emoji,encode64,git,httpie,iterm2,kops,kube-ps1,kubectl,minikube,pip,pyenv,python,rsync,ssh-agent,terraform,virtualenv}" pick"/dev/null"
+zplugin load robbyrussell/oh-my-zsh
 
 zplugin snippet https://github.com/ahmetb/kubectl-aliases/blob/master/.kubectl_aliases
 
@@ -54,3 +57,8 @@ POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir_writable dir vcs pyenv virtualenv aws kubecontext)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time root_indicator background_jobs history time)
+
+zpcompinit
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
