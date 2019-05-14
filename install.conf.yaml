@@ -1,0 +1,44 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.dotfiles: ''
+    ~/.ackrc:
+    ~/.curlrc:
+    ~/.gitconfig:
+    ~/.inputrc:
+    ~/.tmux.conf:
+    ~/.vimrc:
+    ~/.zshrc:
+
+- asdf:
+    - plugin: golang
+      url: https://github.com/kennyp/asdf-golang.git
+    - plugin: helm
+      url: https://github.com/Antiarchitect/asdf-helm.git
+    - plugin: kops
+      url: https://github.com/Antiarchitect/asdf-kops.git
+    - plugin: kubectl
+      url: https://github.com/Banno/asdf-kubectl.git
+    - plugin: nodejs
+      url: https://github.com/asdf-vm/asdf-nodejs.git
+    - plugin: python
+      url: https://github.com/danhper/asdf-python.git
+    - plugin: ruby
+      url: https://github.com/asdf-vm/asdf-ruby.git
+    - plugin: terraform
+      url: https://github.com/Banno/asdf-hashicorp.git
+    - plugin: vault
+      url: https://github.com/Banno/asdf-hashicorp.git
+
+- brewfile:
+    file: Brewfile
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+    - command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+      description: Installing zplugin
+    - [source ./macOS/set-defaults.sh, Tweaking macOS settings]
