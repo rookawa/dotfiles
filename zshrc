@@ -1,8 +1,28 @@
+declare -A ZPLGM
+ZPLGM[MUTE_WARNINGS]=1
+
+export CACHE_DIR="$HOME/.cache"
+
+[[ ! -d "$CACHE_DIR" ]] && mkdir -p "$CACHE_DIR"
+
+# history settings
+export HISTSIZE=100000
+export SAVEHIST=100000
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+export HISTFILE="$CACHE_DIR/.zsh_history"
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
 source ~/.zplugin/bin/zplugin.zsh
 autoload -Uz _zplugin
+
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
+FPATH=/usr/local/share/zsh-completions:$FPATH
 
 zplugin light zdharma/zui
 zplugin light zdharma/zplugin-crasis
@@ -42,6 +62,13 @@ zplugin light romkatv/powerlevel10k
 
 [[ -e $HOME/.localrc ]] && source $HOME/.localrc
 
+PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib -L/usr/local/opt/sqlite/lib"
+export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include -I/usr/local/opt/sqlite/include"
+
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig /usr/local/opt/sqlite/lib/pkgconfig"
+
 DEFAULT_USER="rookawa"
 DISABLE_AUTO_TITLE="true"
 
@@ -58,7 +85,9 @@ POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir_writable dir vcs pyenv virtualenv aws kubecontext)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time root_indicator background_jobs history time)
 
-zpcompinit
-
+autoload -Uz compinit
+compinit
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
+alias ls
