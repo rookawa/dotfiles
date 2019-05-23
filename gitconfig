@@ -15,13 +15,6 @@
     context = 240
     commit = 246 024
 
-#[color "diff"]
-#    meta = yellow bold
-#    frag = magenta bold
-#    old = red bold
-#    new = green bold
-#    whitespace = red reverse
-
 [alias]
     st = status
     co = checkout
@@ -41,10 +34,6 @@
     # installations. To use `simple` instead, add this to your `~/.extra` file:
     # `git config --global push.default simple`. See http://git.io/mMah-w.
     default = matching
-
-[user]
-    name  = rookawa
-    email = rookawa@gmail.com
 
 [pager]
     log  = diff-highlight | less -RX
@@ -77,7 +66,3 @@
     action   = status
     tool     = enhancd
     lessopen = "| pygmentize -O style=solarized -f console256 -g %s"
-[github]
-	user = rookawa
-# [commit]
-# 	gpgsign = true
