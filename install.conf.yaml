@@ -18,6 +18,9 @@
     ~/.zshrc:
       force: true
     ~/.bat.conf:
+    ~/.gnupg/gpg-agent.conf:
+      if: '[[ "$OSTYPE" == "darwin"* ]];'
+      path: gnupg/gpg-agent.conf
 
 - shell:
     - command: zsh -c "if [[ ! $SHELL == "/bin/zsh" ]]; then chsh -s /bin/zsh; else return 0; fi"
