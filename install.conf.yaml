@@ -16,6 +16,7 @@
       relink: true
     ~/.zshrc:
       force: true
+    ~/.bat.conf:
 
 - shell:
     - command: zsh -c "if [[ ! $SHELL == "/bin/zsh" ]]; then chsh -s /bin/zsh; else return 0; fi"
