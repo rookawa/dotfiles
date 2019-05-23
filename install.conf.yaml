@@ -12,6 +12,7 @@
     ~/.gitconfig:
     ~/.inputrc:
     ~/.tmux.conf:
+    ~/.direnvrc:
     ~/.vimrc:
       relink: true
     ~/.zshrc:
