@@ -23,32 +23,20 @@
       path: gnupg/gpg-agent.conf
 
 - shell:
-    - command: zsh -c "if [[ ! $SHELL == "/bin/zsh" ]]; then chsh -s /bin/zsh; else return 0; fi"
-      description: Changing default shell to ZSH
-    - command: zsh -c 'if [[ ! -a /usr/local/bin/brew ]]; then /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; else return 0; fi'
-      description: Installing Homebrew
-      stdout: true
-      stderr: true
-    - command: zsh -c "if [[ ! -d ~/.asdf ]]; then git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.1; else return 0; fi"
-      description: Installing asdf
-      stdout: true
-      stderr: true
     - command: git submodule update --init --recursive
-      description: Installing submodules
+      description: Installing dotbot submodules
+    - command: source ./_install_helper.bash; dotfiles_install_brew
+      description: Installing Homebrew (Password may required)
       stdout: true
-      stderr: true
-    - command: zsh -c "if [[ ! -d ~/.zplugin ]]; then git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin; else return 0; fi"
-      description: Installing zplugin
-      stdout: true
-      stderr: true
-    - command: source ./macOS/set-defaults.sh
-      description: Tweaking macOS settings
-      stdout: true
-      stderr: true
 
 - brewfile:
     file: Brewfile
     no-upgrage: true
+
+- shell:
+    - command: source ./_install_helper.bash; dotfiles_install_asdf
+      description: Installing asdf and add plugins
+      stdout: true
 
 - asdf:
     - plugin: golang
@@ -69,3 +57,19 @@
       url: https://github.com/Banno/asdf-hashicorp.git
     - plugin: vault
       url: https://github.com/Banno/asdf-hashicorp.git
+
+- shell:
+    - command: source ./_install_helper.bash; dotfiles_install_asdf_plugins
+      description: Bootstrapping asdf plugin's package
+      stdout: true
+    - command: source ./_install_helper.bash; dotfiles_install_zplugin
+      description: Installing zplugin
+      stdout: true
+    - command: source ./macOS/set-defaults.sh
+      description: Tweaking macOS settings (Password may required)
+      stdout: true
+    - command: networksetup -setdnsservers Wi-Fi 127.0.0.1 1.1.1.1 8.8.8.8 9.9.9.9
+      description: Setting DNS servers
+    - command: source ./_install_helper.bash; dotfiles_set_default_shell_zsh
+      description: Changing default shell to ZSH if it's not set (Password may required)
+      stdout: true
