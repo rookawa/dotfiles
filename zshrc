@@ -1,3 +1,7 @@
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
 export EDITOR=vim
 
 declare -A ZPLGM
@@ -139,3 +143,6 @@ alias llfu='exa -bghHliS --git'
 
 # cat
 alias cat='bat'
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
