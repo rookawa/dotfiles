@@ -37,6 +37,8 @@
 
 [pager]
     log  = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less -RX
+    show = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less -RX
+    diff = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less -RX
 
 [diff]
     tool      = vimdiff
