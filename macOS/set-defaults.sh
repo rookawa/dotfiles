@@ -260,9 +260,6 @@ defaults write com.apple.ActivityMonitor IconType -int 6
 # Show all processes in Activity Monitor
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 
-# Lock the screen (when going AFK)
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-
 for app in "Activity Monitor" "Dock" "Finder" "Mail" "Messages" "Safari" "SystemUIServer"; do \
     killall "${app}" &> /dev/null
 done
