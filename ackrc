@@ -7,17 +7,11 @@
 --type-set=javascript=.json
 --type-set=markdown=.md,.mdown,.markdown
 --type-set=cucumber=.feature
---type-set=sass=.sass,.scss
---type-set=coffee=.coffee
 #--all
-
-# Don't include webrat.
--G^(?!.*test/webrat-)
 
 --pager=less -R
 --smart-case
 --ignore-dir=log
---ignore-dir=tmp/sass-cache
 --ignore-file=match:/_structure\.sql$/
 --ignore-file=match:/\.log$/
 --ignore-file=match:/\.diff$/
