@@ -6,21 +6,24 @@
 - clean: ['~']
 
 - link:
-    ~/.dotfiles: ''
     ~/.ackrc:
-    ~/.curlrc:
-    ~/.gitconfig:
-    ~/.inputrc:
-    ~/.tmux.conf:
-    ~/.direnvrc:
-    ~/.vimrc:
-      relink: true
-    ~/.zshrc:
-      force: true
     ~/.bat.conf:
+    ~/.curlrc:
+    ~/.default-npm-packages:
+    ~/.direnvrc:
+    ~/.dotfiles: ''
+    ~/.gitconfig:
     ~/.gnupg/gpg-agent.conf:
       if: '[[ "$OSTYPE" == "darwin"* ]];'
       path: gnupg/gpg-agent.conf
+    ~/.inputrc:
+    ~/Library/KeyBindings/DefaultKeyBinding.dict:
+      if: '[[ "$OSTYPE" == "darwin"* ]];'
+      path: macOS/DefaultKeyBinding.dict
+    ~/.tmux.conf:
+    ~/.vimrc:
+    ~/.zshrc:
+      force: true
 
 - shell:
     - command: git submodule update --init --recursive
