@@ -1,57 +1,173 @@
 set nocompatible " not vi compatible
 
-"--------------
-" Load pathogen
-"--------------
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-call pathogen#helptags()
+call plug#begin('~/.vim/plugged')
 
-"------------------
-" Syntax and indent
-"------------------
-syntax on " turn on syntax highlighting
-set showmatch " show matching braces when text indicator is over them
+" NERDTree: directory tree viewer
+"
+Plug 'preservim/nerdtree'
+"
+let NERDTreeChDirMode=2
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$', '__pycache__']
+let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
+let NERDTreeShowBookmarks=0
+let NERDTreeCaseSensitiveSort = 1
+"
+map <F9> :NERDTreeToggle <CR>
 
-" highlight current line, but only in active window
-augroup CursorLineOnlyInActiveWindow
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
-augroup END
+" UltiSnips: snippets engine
+"
+" Use ultisnips if your Vim has Python support,
+" otherwise you can use SnipMate ('garbas/vim-snipmate').
+"
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"
+let g:UltiSnipsEditSplit='vertical'
+let g:UltiSnipsExpandTrigger           = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+"
+nnoremap <Leader>se :UltiSnipsEdit<cr>
+
+" YouCompleteMe: code-completion engine
+"
+" Compiling YCM with semantic support for Go and JavaScript:
+" see https://github.com/Valloric/YouCompleteMe for more languages.
+" $ cd ./plugged/YouCompleteMe
+" $ ./install.py --go-completer --ts-completer
+"
+Plug 'Valloric/YouCompleteMe'
+"
+let g:ycm_dont_warn_on_startup = 0
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_filetype_blacklist = {}
+"
+let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
+
+" Supertab: enhanced tab behavior based on context
+"
+Plug 'ervandew/supertab'
+"
+" make YCM compatible with UltiSnips (using supertab)
+let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabCrMapping                = 0
+
+" Syntastic: syntax checking
+"
+Plug 'vim-syntastic/syntastic'
+"
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = {
+	\ "mode": "active",
+    \ "active_filetypes": ["py", "go"],
+	\ "passive_filetypes": [] }
+"
+map <Leader>s :SyntasticCheck <CR>
+map <Leader>t :SyntasticToggleMode <CR>
+"
+" Python Linter
+let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+
+" NERD Commenter:
+"
+Plug 'preservim/nerdcommenter'
+"
+map <Leader>/ ,ccj
+
+" Git:
+"
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" Tagbar:
+"
+" You need to install ctags and gotags, see
+" https://github.com/majutsushi/tagbar/wiki
+Plug 'majutsushi/tagbar'
+"
+map <F8> :TagbarToggle<CR>
+
+" Golang:
+"
+Plug 'fatih/vim-go'
+"
+" Vim-go Syntax Highlighting
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+"
+" Enable goimports
+let g:go_fmt_command = "goimports"
+"
+" Go Linter
+let g:go_list_type = "quickfix"
+"
+" Mappings
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gb <Plug>(go-build)
+au FileType go nmap <leader>gt <Plug>(go-test)
+au FileType go nmap <leader>gc <Plug>(go-coverage)
+au FileType go nmap <Leader>gds <Plug>(go-def-split)
+au FileType go nmap <Leader>gdv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>gdt <Plug>(go-def-tab)
+au FileType go nmap <Leader>ggd <Plug>(go-doc)
+au FileType go nmap <Leader>ggv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>ggb <Plug>(go-doc-browser)
+au FileType go nmap <Leader>gs <Plug>(go-implements)
+au FileType go nmap <Leader>gi <Plug>(go-info)
+au FileType go nmap <Leader>gm <Plug>(go-rename)
+
+" HTML Editing
+Plug 'gregsexton/MatchTag'
+
+" Plugins for Hashicorp tools
+Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-vaultproject'
+
+" Yaml Syntax
+"
+Plug 'stephpy/vim-yaml'
+
+" GPG support
+Plug 'jamessan/vim-gnupg'
+
+Plug '/usr/local/opt/fzf'
+
+" OneDark Theme
+Plug 'joshdick/onedark.vim'
+
+" Vim polyglot
+Plug 'sheerun/vim-polyglot'
+
+" Vim-airline onedark
+Plug 'vim-airline/vim-airline'
+let g:airline_theme='onedark'
+
+" Initialize plugin system
+call plug#end()
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
 endif
 
-" vim can autodetect this based on $TERM (e.g. 'xterm-256color')
-" but it can be set to force 256 colors
-set t_Co=256
-if has('gui_running')
-    colorscheme solarized
-    let g:lightline = {'colorscheme': 'solarized'}
-elseif &t_Co < 256
-    colorscheme default
-    set nocursorline " looks bad in this mode
-else
-    colorscheme onedark    
-    let g:airline_theme='onedark'
-endif
-
-filetype plugin indent on " enable file type detection
-set autoindent
+colorscheme onedark
 
 "---------------------
 " Basic editing config
@@ -92,6 +208,12 @@ if &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
+"------------------
+" Syntax and indent
+"------------------
+syntax on " turn on syntax highlighting
+set showmatch " show matching braces when text indicator is over them
+
 "--------------------
 " Misc configurations
 "--------------------
@@ -123,68 +245,6 @@ command -nargs=0 Sudow w !sudo tee % >/dev/null
 "---------------------
 " Plugin configuration
 "---------------------
-
-" nerdtree
-nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>f :NERDTreeFind<CR>
-
-" buffergator
-let g:buffergator_suppress_keymaps = 1
-nnoremap <Leader>b :BuffergatorToggle<CR>
-
-" tagbar
-nnoremap <Leader>t :TagbarToggle<CR>
-
-" gundo
-nnoremap <Leader>u :GundoToggle<CR>
-if has('python3')
-    let g:gundo_prefer_python3 = 1
-endif
-
-" ctrlp
-nnoremap ; :CtrlPBuffer<CR>
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_show_hidden = 1
-
-" ag / ack.vim
-command -nargs=+ Gag Gcd | Ack! <args>
-nnoremap K :Gag "\b<C-R><C-W>\b"<CR>:cw<CR>
-if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-    let g:ackprg = 'ag --vimgrep'
-endif
-
-" syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = {
-    \ 'mode': 'passive',
-    \ 'active_filetypes': [],
-    \ 'passive_filetypes': []
-\}
-nnoremap <Leader>s :SyntasticCheck<CR>
-nnoremap <Leader>r :SyntasticReset<CR>
-nnoremap <Leader>i :SyntasticInfo<CR>
-nnoremap <Leader>m :SyntasticToggleMode<CR>
-
-" easymotion
-map <Space> <Plug>(easymotion-prefix)
-
-" incsearch
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-" incsearch-easymotion
-map z/ <Plug>(incsearch-easymotion-/)
-map z? <Plug>(incsearch-easymotion-?)
-map zg/ <Plug>(incsearch-easymotion-stay)
-
-" argwrap
-nnoremap <Leader>w :ArgWrap<CR>
-
-noremap <Leader>x :OverCommandLine<CR>
 
 " markdown
 let g:markdown_fenced_languages = [

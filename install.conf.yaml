@@ -76,3 +76,6 @@
     - command: source ./_install_helper.bash; dotfiles_set_default_shell_zsh
       description: Changing default shell to ZSH if it's not set (Password may required)
       stdout: true
+    - command: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      description: Installing vim-plug, Minimalist Vim Plugin Manager
+      stdout: true
