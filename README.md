@@ -1,5 +1,9 @@
 # RooKaWa's dotfile
 
+## Prerequisite
+
+make sure you have git install. ex. `xcode-select --install`
+
 ## Install
 
 ```sh
