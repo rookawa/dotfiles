@@ -131,7 +131,7 @@ POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir_writable dir vcs pyenv virtualenv aws kubecontext)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time root_indicator background_jobs history time)
 
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=33"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 
 export BAT_CONFIG_PATH="$HOME/.bat.conf"
 
