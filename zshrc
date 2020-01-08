@@ -60,8 +60,20 @@ zplugin light "rupa/z"
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX" nocompile
 zplugin light tj/git-extras
 
-zplugin ice depth"1" multisrc="lib/{clipboard,compfix,completion,correction,diagnostics,directories,functions,git,grep,history,key-bindings,misc,termsupport,theme-and-appearance}.zsh" pick"/dev/null"
-zplugin load robbyrussell/oh-my-zsh
+zplugin snippet OMZ::lib/clipboard.zsh
+zplugin snippet OMZ::lib/compfix.zsh
+zplugin snippet OMZ::lib/completion.zsh
+zplugin snippet OMZ::lib/correction.zsh
+zplugin snippet OMZ::lib/diagnostics.zsh
+zplugin snippet OMZ::lib/directories.zsh
+zplugin snippet OMZ::lib/functions.zsh
+zplugin snippet OMZ::lib/git.zsh
+zplugin snippet OMZ::lib/grep.zsh
+zplugin snippet OMZ::lib/history.zsh
+zplugin snippet OMZ::lib/key-bindings.zsh
+zplugin snippet OMZ::lib/misc.zsh
+zplugin snippet OMZ::lib/termsupport.zsh
+zplugin snippet OMZ::lib/theme-and-appearance.zsh
 
 zpcompinit
 
@@ -76,10 +88,11 @@ zplugin snippet OMZ::plugins/fzf/fzf.plugin.zsh
 zplugin ice wait"0" lucid atload"unalias grv"
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/gpg-agent/gpg-agent.plugin.zsh
+zplugin snippet OMZ::plugins/helm/helm.plugin.zsh
 zplugin snippet OMZ::plugins/iterm2/iterm2.plugin.zsh
 zplugin snippet OMZ::plugins/kops/kops.plugin.zsh
 zplugin snippet OMZ::plugins/kube-ps1/kube-ps1.plugin.zsh
-# zplugin snippet OMZ::plugins/minikube/minikube.plugin.zsh
+zplugin snippet OMZ::plugins/minikube/minikube.plugin.zsh
 zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
 # zplugin snippet OMZ::plugins/pyenv/pyenv.plugin.zsh
 zplugin snippet OMZ::plugins/python/python.plugin.zsh
