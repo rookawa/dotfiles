@@ -145,6 +145,7 @@ zplugin ice depth=1
 zplugin light "denysdovhan/spaceship-prompt"
 SPACESHIP_DOCKER_CONTEXT_SHOW=false
 SPACESHIP_TIME_SHOW=true
+SPACESHIP_KUBECTL_SHOW=true
 
 [[ -e $HOME/.localrc ]] && source $HOME/.localrc
 
