@@ -113,19 +113,19 @@ zplugin snippet OMZ::plugins/vault/_vault
 zplugin ice has'minikube' id-as'minikube' as"null" wait silent nocompile \
         atclone'minikube completion zsh >! _minikube' \
         atpull'%atclone' src"_minikube" run-atpull \
-        atload'zicdreplay'
+        atload'zpcdreplay'
 zplugin light zdharma/null
 
 zplugin ice has'helm' id-as'helm' as"null" wait silent nocompile \
         atclone'helm completion zsh >! _helm' \
         atpull'%atclone' src"_helm" run-atpull \
-        atload'zicdreplay'
+        atload'zpcdreplay'
 zplugin light zdharma/null
 
 zplugin ice has'kops' id-as'kops' as"null" wait silent nocompile \
         atclone'kops completion zsh >! _kops' \
         atpull'%atclone' src"_kops" run-atpull \
-        atload'zicdreplay'
+        atload'zpcdreplay'
 zplugin light zdharma/null
 
 zplugin cdreplay -q
